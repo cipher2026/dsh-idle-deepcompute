@@ -75,20 +75,29 @@ develop <设备id>             开发/解锁硬件或电力设备
 upgrade <设备id>             提升硬件/电力设备等级
 ```
 
-## 安装（开发态，本地链接）
+## 安装
+
+### 从 GitHub 安装（推荐）
 
 ```bash
-# 在 profile 目录把本包链接进 node_modules
+dsh plugin --profile web add github:cipher2026/dsh-idle-deepcompute
+# 然后重启 dsh web
+```
+
+`dsh plugin add` 会自动完成依赖安装与插件注册（本包声明了 `dsh.bundle.patch`）。
+
+### 本地链接（开发态）
+
+```bash
 dsh plugin --profile web add "link:/path/to/dsh-deepcompute"
 
-# 在 ~/.dsh/cordis.patch.yml 末尾追加插件行：
+# 然后在 ~/.dsh/cordis.patch.yml 末尾追加：
 # - insert:
 #     - id: ui-deepcompute
 #       name: 'dsh-deepcompute'
 
 # 重启 dsh web 后生效
 ```
-
 ## 结构
 
 - `lib/index.js` — 宿主半：注册面向 agent 的系统提示公告
