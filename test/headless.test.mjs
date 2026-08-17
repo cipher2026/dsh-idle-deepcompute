@@ -68,6 +68,12 @@ check('buy grid after develop', t.buy(s3, 'grid', 1).ok);
 const capB = t.production(s3).powerCap;
 check('upgrade gen lv2', t.upgradeHw(s3, 'gen').ok && s3.hwLevel.gen === 2);
 check('lv2 powerCap higher', t.production(s3).powerCap > capB);
+
+// 供电不足时算力打折（10 GTX 需求 1.0MW，供电仅 0.5MW → 算力减半）
+const s4 = t.newGame();
+s4.hardware.gtx = 10;
+const P4 = t.production(s4);
+check('power shortage throttles flops', P4.powerFactor < 1 && Math.abs(P4.flops - 5) < 1e-9);
 t.G = s; // 恢复主存档
 
 // 购买
