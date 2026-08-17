@@ -1,0 +1,4 @@
+node_modules/
+*.log
+restart-*
+.DS_Store
