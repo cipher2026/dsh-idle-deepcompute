@@ -1,9 +1,17 @@
 # 深算 DeepCompute
 
+[![GitHub stars](https://img.shields.io/github/stars/cipher2026/dsh-idle-deepcompute?style=flat)](https://github.com/cipher2026/dsh-idle-deepcompute)
+[![License](https://img.shields.io/github/license/cipher2026/dsh-idle-deepcompute)](LICENSE)
+[![DSH plugin](https://img.shields.io/badge/DSH%20plugin-fun-7dffc8)](https://awesome-dsh-plugin.com)
+
 终端风 AI 实验室挂机游戏，DSH Web GUI 插件。
 
 - 右侧边缘「深算」标签 → 滑出式终端面板
 - 存档：浏览器 localStorage（键 `deepcompute.save.v1`，10 秒自动保存，支持 `export`/`import`）
+
+## 截图
+
+> 待补充：打开「深算」面板后的界面截图（或动图）。
 
 ## 玩法
 
