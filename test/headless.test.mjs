@@ -18,7 +18,7 @@ check('poem trained lvl1', s.trained.poem === 1);
 let P = t.production(s);
 check('net money = 1 - 0.1 wage = 0.9/s', Math.abs(P.money - 0.9) < 1e-9);
 check('wages 0.1/s', Math.abs(P.wages - 0.1) < 1e-9);
-check('prod flops=1/s', Math.abs(P.flops - 1) < 1e-9);
+check('prod flops=0.95/s (1 - poem推理0.05)', Math.abs(P.flops - 0.95) < 1e-9);
 
 const mb = s.money; for (let i = 0; i < 10; i++) t.tick(s, 1);
 check('tick money +9', Math.abs(s.money - (mb + 9)) < 1e-6);
@@ -73,14 +73,20 @@ check('lv2 powerCap higher', t.production(s3).powerCap > capB);
 const s4 = t.newGame();
 s4.hardware.gtx = 10;
 const P4 = t.production(s4);
-check('power shortage throttles flops', P4.powerFactor < 1 && Math.abs(P4.flops - 5) < 1e-9);
+check('power shortage throttles flops', P4.powerFactor < 1 && Math.abs(P4.flops - 4.95) < 1e-9);
+// 模型推理消耗算力
+check('inference demand', Math.abs(P4.inferDemand - 0.05) < 1e-9);
+const s5 = t.newGame();
+s5.trained.transformer = 1; // 收入 150000 → 推理需求 7500，但只有 1 GTX(1 FLOPs/s)
+const P5 = t.production(s5);
+check('inference throttles income', P5.inferFactor < 1 && P5.flops === 0);
 t.G = s; // 恢复主存档
 
 // 购买
 t.buy(s, 'gtx', 3);
 check('gtx=4', s.hardware.gtx === 4);
 P = t.production(s);
-check('prod flops=4/s', Math.abs(P.flops - 4) < 1e-9);
+check('prod flops=3.95/s', Math.abs(P.flops - 3.95) < 1e-9);
 
 // 训练限速 + 槽位
 t.train(s, 'classifier');
