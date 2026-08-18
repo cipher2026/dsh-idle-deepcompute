@@ -1,6 +1,6 @@
 {
   "name": "dsh-deepcompute",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "description": "深算 DeepCompute：终端风 AI 实验室挂机游戏（DSH Web GUI 插件，侧边栏「深算」入口 + 全宽终端页）。",
   "main": "lib/index.js",
