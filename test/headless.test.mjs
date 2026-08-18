@@ -80,6 +80,12 @@ const s5 = t.newGame();
 s5.trained.transformer = 1; // 收入 150000 → 推理需求 7500，但只有 1 GTX(1 FLOPs/s)
 const P5 = t.production(s5);
 check('inference throttles income', P5.inferFactor < 1 && P5.flops === 0);
+// 训练消耗 RP
+const s6 = t.newGame();
+s6.rp = 0;
+check('train needs RP', !t.train(s6, 'classifier').ok);
+s6.rp = 10;
+check('train deducts RP', t.train(s6, 'classifier').ok && Math.abs(s6.rp - 9) < 1e-9);
 t.G = s; // 恢复主存档
 
 // 购买
@@ -119,6 +125,7 @@ check('v2 net income (1+16-0.1=16.9)', Math.abs(t.production(s).money - 16.9) < 
 // 高产出练完时代0
 s.hardware.dc = 1000;
 s.hardware.plant = 1000;
+s.rp = 1e9;
 for (const mid of ['chatbot', 'assistant', 'transformer']) {
   const tr = t.train(s, mid);
   check('train ' + mid + ' start', tr.ok);
